@@ -106,9 +106,6 @@ public class Server {
     public synchronized void subscribe(ClientHandler clientHandler) throws SQLException {
 
 
-        clients.add(clientHandler);
-
-
         if (selectForm(clientHandler)) {
             prepareUpdateStatement();
             fillTable(clientHandler.getUsername());
@@ -118,6 +115,7 @@ public class Server {
             fillTable(clientHandler.getUsername());
             broadcastMessage("Клиент " + clientHandler.getUsername() + " подлючился \n");
         }
+        clients.add(clientHandler);
 
         broadcastClientList();
 
