@@ -121,7 +121,6 @@ public class Controller  {
                             executeCommander(msg);
                             continue;
                         }
-                        
                         textArea.appendText(msg);
                     }
                 } catch (IOException e) {

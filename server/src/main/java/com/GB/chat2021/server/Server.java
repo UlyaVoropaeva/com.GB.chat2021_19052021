@@ -75,7 +75,6 @@ public class Server {
         psInsert.executeUpdate();
         connection.commit();
     }
-
     private static void prepareInsertStatement() throws SQLException {
         psInsert = connection.prepareStatement("INSERT INTO students (name, time) VALUES ( ? , 0 );");
     }

@@ -30,6 +30,5 @@ public class MyThreadServer extends Thread{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

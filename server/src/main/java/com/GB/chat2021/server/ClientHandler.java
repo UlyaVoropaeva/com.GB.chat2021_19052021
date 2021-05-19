@@ -52,7 +52,6 @@ public class ClientHandler {
             }
         }).start();
     }
-
     private void executeCommand(String cmd) throws IOException, SQLException {
         if (cmd.startsWith("/exit")) {
             disconnect();
