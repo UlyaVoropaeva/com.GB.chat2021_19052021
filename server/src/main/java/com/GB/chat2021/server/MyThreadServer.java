@@ -27,6 +27,7 @@ public class MyThreadServer extends Thread{
                out.writeUTF(msg+ " ");
             }
 
+
         } catch (IOException e) {
             e.printStackTrace();
         }

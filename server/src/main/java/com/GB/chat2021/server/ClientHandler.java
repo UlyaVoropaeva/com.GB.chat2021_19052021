@@ -40,7 +40,6 @@ public class ClientHandler {
                         executeCommand(msg);
                         continue;
                     }
-
                     server.broadcastMessage(username + ": " + msg);
                 }
             } catch (IOException e) {

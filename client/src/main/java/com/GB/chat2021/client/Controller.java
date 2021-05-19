@@ -112,7 +112,6 @@ public class Controller  {
                         }
 
                     }
-
                     //цикл общения
                     while (true) {
                         String msg = in.readUTF();
