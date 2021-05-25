@@ -4,24 +4,19 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.sql.*;
+import java.sql.SQLException;
 
 public class ClientHandler {
-
     private Socket clientSocket;
     private DataInputStream in;
     private DataOutputStream out;
     private Server server;
     private String username;
-
-
     public ClientHandler(Socket clientSocket, Server server) throws IOException, ClassNotFoundException, SQLException {
         this.clientSocket = clientSocket;
         this.in = new DataInputStream(clientSocket.getInputStream());
         this.out = new DataOutputStream(clientSocket.getOutputStream());
         this.server = server;
-
-
         new Thread(() -> {
             try {
                 //цикл авторизации
@@ -32,7 +27,6 @@ public class ClientHandler {
                         break;
                     }
                 }
-
                 //цикл общения
                 while (true) {
                     String msg = in.readUTF();
@@ -59,7 +53,6 @@ public class ClientHandler {
         }
         if (cmd.startsWith("/login ")) {
             String usernameFromLogin = cmd.split("\\s")[1];
-
             if (server.isUserOnline(usernameFromLogin)) {
                 sendMessage("/login_failed Current nickname has already been occupied");
                 return;
@@ -67,26 +60,25 @@ public class ClientHandler {
             username = usernameFromLogin;
             sendMessage("/login_ok " + username);
             server.subscribe(this);
+
+
             return;
         }
-
         if (cmd.startsWith("/who_am_i")) {
             server.usernameMessage(username);
             System.out.println("Клиент:" + username);
             return;
         }
-
         if (cmd.startsWith("/w")) {
             String[] tokens = cmd.split("\\s", 3);
             server.privatUserMessage(this, tokens[1], tokens[2]);
             return;
         }
-
     }
-
 
     private void disconnect() {
         server.unsubscribe(this);
+
         if (in != null) {
             try {
                 in.close();
@@ -108,9 +100,7 @@ public class ClientHandler {
                 e.printStackTrace();
             }
         }
-
     }
-
     public void sendMessage(String message) {
         try {
             out.writeUTF(message);
@@ -118,9 +108,7 @@ public class ClientHandler {
             disconnect();
         }
     }
-
     public String getUsername() {
         return username;
     }
-
 }
