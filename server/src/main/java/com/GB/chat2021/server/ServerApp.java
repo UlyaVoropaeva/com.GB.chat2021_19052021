@@ -1,8 +1,6 @@
 package com.GB.chat2021.server;
 
 import java.io.IOException;
-import java.net.ServerSocket;
-import java.net.Socket;
 
 public class ServerApp {
 
