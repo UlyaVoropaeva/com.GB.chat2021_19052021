@@ -5,20 +5,25 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class ClientHandler {
+public class ClientHandler  {
     private Socket clientSocket;
     private DataInputStream in;
     private DataOutputStream out;
     private Server server;
     private String username;
+
+
     public ClientHandler(Socket clientSocket, Server server) throws IOException, ClassNotFoundException, SQLException {
         this.clientSocket = clientSocket;
         this.in = new DataInputStream(clientSocket.getInputStream());
         this.out = new DataOutputStream(clientSocket.getOutputStream());
         this.server = server;
-        new Thread(() -> {
-            try {
+
+        //new Thread(() -> {
+       server.getClienExecutorService().execute (() -> { try {
                 //цикл авторизации
                 while (true) {
                     String msg = in.readUTF();
@@ -44,7 +49,8 @@ public class ClientHandler {
             } finally {
                 disconnect();
             }
-        }).start();
+        });
+            // }).start();*/
     }
     private void executeCommand(String cmd) throws IOException, SQLException {
         if (cmd.startsWith("/exit")) {
@@ -100,6 +106,7 @@ public class ClientHandler {
                 e.printStackTrace();
             }
         }
+
     }
     public void sendMessage(String message) {
         try {

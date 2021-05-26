@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
     private int port;
@@ -16,10 +18,15 @@ public class Server {
     private static Connection connection;
     private static Statement stmt;
     private static PreparedStatement psInsert;
+    private ExecutorService clienExecutorService;
+
 
 
 
     public Server(int port) {
+
+        clienExecutorService =Executors.newCachedThreadPool();
+
         this.port = port;
         this.clients = new ArrayList<>();
         try (ServerSocket serverSocket = new ServerSocket(port)) {
@@ -39,9 +46,16 @@ public class Server {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-      //  } finally {
+        } finally {
+
+            clienExecutorService.shutdown();
+
       //      SQLServer.disconnect();
         }
+    }
+
+    public  ExecutorService getClienExecutorService(){
+        return clienExecutorService;
     }
 
     public synchronized void subscribe(ClientHandler clientHandler) throws SQLException {
