@@ -38,6 +38,7 @@ public class Controller {
             alert.showAndWait();
         }
     }
+
     public void clickExit(){
         textArea.clear();
         disconnect();

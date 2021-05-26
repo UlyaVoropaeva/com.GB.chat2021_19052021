@@ -12,11 +12,9 @@ public class HistoryClient {
 
     private static PrintWriter out;
 
-
     private static String fileName(String username) {
         return "history/local_" + username + ".txt";
     }
-
 
     public static void listMessage(String message) {
         out.println(message);

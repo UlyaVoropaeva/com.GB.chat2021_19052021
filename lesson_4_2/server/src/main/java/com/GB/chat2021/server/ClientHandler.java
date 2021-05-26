@@ -15,7 +15,6 @@ public class ClientHandler  {
     private Server server;
     private String username;
 
-
     public ClientHandler(Socket clientSocket, Server server) throws IOException, ClassNotFoundException, SQLException {
         this.clientSocket = clientSocket;
         this.in = new DataInputStream(clientSocket.getInputStream());

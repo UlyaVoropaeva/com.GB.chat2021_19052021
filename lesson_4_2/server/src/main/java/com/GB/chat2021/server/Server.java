@@ -20,9 +20,6 @@ public class Server {
     private static PreparedStatement psInsert;
     private ExecutorService clienExecutorService;
 
-
-
-
     public Server(int port) {
 
         clienExecutorService =Executors.newCachedThreadPool();

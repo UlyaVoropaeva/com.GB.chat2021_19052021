@@ -10,7 +10,7 @@ public class SQLServer {
 
     private static Server server;
 
-   public static void connect() {
+    public static void connect() {
         try {
             Class.forName("org.sqlite.JDBC");
             connection = DriverManager.getConnection("jdbc:msqlite:main.db");
